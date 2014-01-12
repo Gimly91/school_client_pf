@@ -8,6 +8,8 @@ import static school.beans.BeanUtils.REGISTER_PAGE;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -26,12 +28,13 @@ public class RegisterBean {
 
 	private User user = new User();
 	private Date date;
+	private static final Logger LOGGER = Logger.getLogger(RegisterBean.class.getName());
 
 	@SuppressWarnings("deprecation")
 	public String register() throws Exception {
-		if (user.getUsername() != "") {
+		if (!user.getUsername().equals("")) {
 			String readWS = EXISTS_WS + user.getUsername();
-			
+
 			ClientRequest request = new ClientRequest(readWS);
 			request.accept("application/json");
 			ClientResponse<Boolean> response = request.get(Boolean.class);
@@ -63,7 +66,7 @@ public class RegisterBean {
 	@SuppressWarnings("deprecation")
 	public void serverRegister() {
 		try {
-			
+
 			ClientRequest request = new ClientRequest(CREATE_WS);
 			request.accept("application/json");
 			request.body("application/json", user);
@@ -73,13 +76,13 @@ public class RegisterBean {
 			if (response.getStatus() != 201) {
 				throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
 			}
-			
+
 		} catch (MalformedURLException e) {
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 		}
 	}
 

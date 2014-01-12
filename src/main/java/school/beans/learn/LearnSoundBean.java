@@ -9,6 +9,7 @@ import school.model.Image;
 import school.model.Sound;
 import school.resourceHandler.ResourceHandler;
 import static school.utils.Utils.*;
+
 @ManagedBean(name = "learnSoundBean")
 @SessionScoped
 public class LearnSoundBean {
@@ -20,12 +21,11 @@ public class LearnSoundBean {
 	public LearnSoundBean() throws Exception {
 		resourceHandler = new ResourceHandler();
 		setImages(resourceHandler.getImages(1));
-		// setSounds(resourceHandler.getSounds(1));
 	}
 
 	public String getImage(String path) {
-		if (path != "" && path.length() > 4) {
-			if ( path.substring(0, 1).matches("[0-9]*")) {
+		if (!path.equals("") && path.length() > 4) {
+			if (path.substring(0, 1).matches("[0-9]*")) {
 				return IMAGE_DIGITS + path;
 			} else if (path.length() > 1 && path.substring(0, 1).matches("[a-z]*") && path.length() < 6) {
 				return IMAGE_LETTERS + path;
@@ -35,7 +35,7 @@ public class LearnSoundBean {
 	}
 
 	public String play(String path) {
-		if (path != "") {
+		if (!path.equals("")) {
 			if (path.substring(0, 1).matches("[0-9]*")) {
 				return SOUND_DIGITS + path.substring(0, path.length() - 3) + "wav";
 			} else if (path.substring(0, 1).matches("[a-z]*") && path.length() < 6) {

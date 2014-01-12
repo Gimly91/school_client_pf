@@ -38,7 +38,6 @@ public class LogInBean {
 	public void login() throws Exception {
 		user.setUsername(getUsername());
 		user.setPassword(MD5Encrypt.hashPassword(getPassword()));
-		// user.setBirthDate();
 
 		ClientRequest request = new ClientRequest(LOGIN_WS);
 
@@ -46,15 +45,14 @@ public class LogInBean {
 		request.body("application/json", user);
 		ClientResponse<String> response = request.post(String.class);
 
-		// First validate the api status code
 		int apiResponseCode = response.getResponseStatus().getStatusCode();
 		if (response.getResponseStatus().getStatusCode() != 200) {
 			throw new RuntimeException("Failed with HTTP error code : " + apiResponseCode);
 		}
 		String accountType = response.getEntity();
 
-		if (!accountType.equals("noUser")) {
-			if (accountType.equals("Admin")) {
+		if (!"noUser".equals(accountType)) {
+			if ("Admin".equals(accountType)) {
 				setIsAdmin(true);
 			}
 			setIsLogged(true);
@@ -85,9 +83,8 @@ public class LogInBean {
 	public boolean isUserLogged() {
 		if (user.getUsername() != null) {
 			return true;
-		} else {
-			return false;
 		}
+		return false;
 	}
 
 	public String getUsername() {

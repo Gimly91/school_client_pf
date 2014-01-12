@@ -21,7 +21,6 @@ public class LearnColorBean {
 	public LearnColorBean() throws Exception {
 		resourceHandler = new ResourceHandler();
 		setImages(resourceHandler.getImages(2));
-		// setSounds(resourceHandler.getSounds(1));
 	}
 
 	public String getImage(String path) {
