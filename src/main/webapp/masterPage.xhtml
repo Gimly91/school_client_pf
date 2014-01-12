@@ -1,0 +1,205 @@
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link type="text/css" rel="stylesheet" href="themes/bluesky/skin.css" />
+	<style type="text/css">
+.ui-widget {
+	font-size: 75%;
+}
+
+.ui-widget .ui-widget {
+	font-size: 100%;
+}
+
+.ui-layout-unit-content {
+	background-color: #1373A1;
+}
+
+.ui-layout-a .ui-layout-unit-content {
+	background-image: url("./Images/logo2.jpg");
+	font-size: 90% !important;
+}
+
+.panelGridA {
+	background-color: #1373A1 !important;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	top: 0px;
+	width: 150px;
+}
+
+.colorBottom .ui-layout-unit-content {
+	background-color: #5C8BF9 !important;
+}
+
+.backgroudIm1 .ui-layout-unit-content {
+	background-image: url("./Images/backg.jpg");
+}
+
+.backgroudIm2 .ui-layout-unit-content {
+	background-image: url("./Images/backg2.jpg");
+}
+</style>
+</h:head>
+<h:body>
+	<p:layout fullPage="true">
+		<!--<p:layoutUnit position="west" style="background-color: #1373A1"
+			size="10%">
+		</p:layoutUnit>
+		<p:layoutUnit position="east" style="background-color: #1373A1"
+			size="10%">
+		</p:layoutUnit>
+		-->
+		<p:layoutUnit position="center" style="background-color: #1373A1">
+			<p:layout>
+				<p:layoutUnit position="north" size="200"
+					style="background-color: #1373A1">
+					<p:layout>
+						<p:layoutUnit id="inner_north" position="north" size="77%"
+							style="background-color: #1373A1">
+							<p:layout>
+								<p:layoutUnit styleClass="ui-layout-a" id="inner_west"
+									position="center" size="1000"></p:layoutUnit>
+								<p:layoutUnit id="inner_east" position="east" size="230"
+									styleClass="backgroudIm2">
+									<h:form>
+									<center>
+										<p:panelGrid columns="2" rendered="#{!logInBean.isLogged}">
+    											<h:outputLabel for="#{logInBean.username}" value="UserName"
+												style="color:black;" />
+											<h:inputText value="#{logInBean.username}" label="UserName"
+												size="9"></h:inputText>
+											<h:outputLabel for="#{logInBean.password}" value="Password"
+												style="color:black;" />
+											<h:inputSecret value="#{logInBean.password}" size="9"></h:inputSecret>
+
+											<f:facet name="footer">
+												<p:commandButton type="submit" value="Login" ajax="false"
+													action="#{logInBean.login}" />
+												<p:commandButton type="submit" value="Register"
+													action="#{layoutBean.viewRegisterWindow}" immediate="true"></p:commandButton>
+											</f:facet>
+										</p:panelGrid>
+									</center>
+										<h:panelGrid columns="2" styleClass="backgroudIm2"
+											rendered="#{logInBean.isLogged}">
+											Welcome, 
+											<p:commandLink id="nonAjax"
+												actionListener="#{pprBean.savePerson}"
+												style="margin-right:20px;" ajax="false">
+												<h:outputText value="#{logInBean.user.username}" />
+											</p:commandLink>
+											<p:commandButton type="submit" value="Logout" ajax="false"
+												action="#{logInBean.logout}"></p:commandButton>
+										</h:panelGrid>
+									</h:form>
+								</p:layoutUnit>
+							</p:layout>
+						</p:layoutUnit>
+						<p:layoutUnit id="inner_south" position="center" size="23%"
+							styleClass="backgroudIm1"></p:layoutUnit>
+					</p:layout>
+				</p:layoutUnit>
+
+				<p:layoutUnit position="south" size="65" header=" "
+					styleClass="colorBottom">
+					<center>
+						<h:outputText value="&#169; 2013-2014 GamesForKids" />
+						<h:form>
+							<p:commandLink id="ajax" style="margin-right:20px;">
+								<h:outputText value="Terms and Conditions" />
+							</p:commandLink>
+							<p:commandLink id="nonAjax" style="margin-right:20px;"
+								ajax="false">
+								<h:outputText value="PRIVACY POLICY" />
+							</p:commandLink>
+							<p:commandLink id="nonAjax1" style="margin-right:20px;"
+								ajax="false">
+								<h:outputText value="Help" />
+							</p:commandLink>
+							<p:commandLink id="nonAjax2" style="margin-right:20px;"
+								ajax="false">
+								<h:outputText value="Contact" />
+							</p:commandLink>
+						</h:form>
+					</center>
+				</p:layoutUnit>
+
+				<p:layoutUnit position="west" size="190" header="Select Lesson"
+					style="background-color: #1373A1" collapsible="true"
+					styleClass="backgroudIm1">
+					<h:form>
+						<p:growl id="messages" />
+						<center>
+							<p:menu model="#{menuBean.model}" />
+						</center>
+					</h:form>
+				</p:layoutUnit>
+
+				<p:layoutUnit position="east" size="230" header="News"
+					style="background-color: #1373A1" collapsible="true"
+					styleClass="backgroudIm2">
+					<center>
+						<p:carousel itemStyleClass="carItem" autoPlayInterval="2000"
+							numVisible="1" effect="easeInStrong" circular="true">
+							<p:graphicImage value="/Images/slide1.jpg" />
+							<p:graphicImage value="/Images/slide2.jpg" />
+							<p:graphicImage value="/Images/slide3.jpg" />
+							<p:graphicImage value="/Images/slide4.jpg" />
+						</p:carousel>
+					</center>
+				</p:layoutUnit>
+
+				<p:layoutUnit position="center" style="background-color: #1373A1">
+					<h:panelGroup rendered="#{layoutBean.menuAction == 0}">
+						<iframe src="innerCenter.xhtml" width="99%" height="99%" />
+					</h:panelGroup>
+					<h:panelGroup rendered="#{layoutBean.menuAction == 1}">
+						<iframe src="./Resources/Learn/sound.xhtml" width="99%"
+							height="99%" />
+					</h:panelGroup>
+					<h:panelGroup rendered="#{layoutBean.menuAction == 2}">
+						<iframe src="./Resources/Learn/color.xhtml" width="99%"
+							height="99%" />
+					</h:panelGroup>
+					<h:panelGroup rendered="#{layoutBean.menuAction == 3}">
+						<iframe src="./Resources/Learn/operation.xhtml" width="99%"
+							height="99%" />
+					</h:panelGroup>
+					<h:panelGroup rendered="#{layoutBean.menuAction == 4}">
+						<iframe src="./Resources/Learn/word.xhtml" width="99%"
+							height="99%" />
+					</h:panelGroup>
+					<h:panelGroup rendered="#{layoutBean.menuAction == 5}">
+						<iframe src="./Resources/Repeat/sound.xhtml" width="99%"
+							height="99%" />
+					</h:panelGroup>
+					<h:panelGroup rendered="#{layoutBean.menuAction == 6}">
+						<iframe src="./Resources/Repeat/operation.xhtml" width="99%"
+							height="99%" />
+					</h:panelGroup>
+					<h:panelGroup rendered="#{layoutBean.menuAction == 7}">
+						<iframe src="./Resources/Repeat/color.xhtml" width="99%"
+							height="99%" />
+					</h:panelGroup>
+					<h:panelGroup rendered="#{layoutBean.menuAction == 8}">
+						<iframe src="./Resources/Play/puzzle.html" width="99%"
+							height="99%" />
+					</h:panelGroup>
+					<h:panelGroup rendered="#{layoutBean.menuAction == 9}">
+						<iframe src="./Resources/Play/blocks.html" width="99%"
+							height="99%" />
+					</h:panelGroup>
+					<h:panelGroup rendered="#{layoutBean.menuAction == 10}">
+						<iframe src="./Resources/Play/findMe.xhtml" width="99%"
+							height="99%" />
+					</h:panelGroup>
+				</p:layoutUnit>
+			</p:layout>
+		</p:layoutUnit>
+	</p:layout>
+</h:body>
+</html>

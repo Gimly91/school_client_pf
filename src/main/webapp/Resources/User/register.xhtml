@@ -1,0 +1,102 @@
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link type="text/css" rel="stylesheet" href="themes/bluesky/skin.css" />
+	<style type="text/css">
+.someclass {
+	background-image: url("./Images/logo2.jpg");
+	background-color: #1376A2;
+	width: 470px;
+}
+</style>
+</h:head>
+<h:body styleClass="someclass">
+	<p:panel id="panel" header="Register" styleClass="someclass">
+		<h:form>
+			<p:messages id="msgs" />
+			<h:panelGrid columns="3">
+				<h:outputLabel for="a1" value="Name: " />
+				<p:inputText id="a1" value="#{registerBean.user.name}"
+					required="true" label="Name">
+					<f:validateLength minimum="5" />
+				</p:inputText>
+				<p:message for="a1" display="icon" />
+
+				<h:outputLabel for="popupCal0" value="BirthDate: " />
+				<p:calendar value="#{registerBean.date}" id="popupCal0"
+					required="true" label="BirthDate">
+					<f:convertDateTime pattern="MM/dd/yyyy" />
+				</p:calendar>
+				<p:message for="popupCal0" display="icon" />
+
+				<h:outputLabel for="a5" value="Username: " />
+				<p:inputText id="a5" value="#{registerBean.user.username}"
+					required="true" label="Username">
+					<f:validateLength minimum="5" />
+				</p:inputText>
+				<p:message for="a5" display="icon" />
+
+				<h:outputLabel for="pwd1" value="Password: " />
+				<p:password id="pwd1" value="#{registerBean.user.password}"
+					match="pwd2" label="Password" required="true" feedback="true">
+					<f:validateLength minimum="6" />
+				</p:password>
+				<p:message for="pwd1" display="icon" />
+
+				<h:outputLabel for="pwd2" value="Re-Password: " />
+				<p:password id="pwd2" value="#{registerBean.user.password}"
+					label="Password*" required="true">
+					<f:validateLength minimum="6" />
+				</p:password>
+				<p:message for="pwd2" display="icon" />
+
+				<h:outputLabel for="a6" value="Description: " />
+				<p:inputText id="a6" value="#{registerBean.user.description}"
+					required="true" label="Description">
+					<f:validateLength minimum="6" />
+				</p:inputText>
+				<p:message for="a6" display="icon" />
+
+				<h:outputLabel for="a7" value="Email: " />
+				<p:inputText id="a7" value="#{registerBean.user.email}"
+					required="true" label="Email">
+					<f:validator validatorId="custom.emailValidator" />
+				</p:inputText>
+				<p:message for="a6" display="icon" />
+			</h:panelGrid>
+			<center>
+				<p:commandButton value="Register" ajax="false" icon="ui-icon-check"
+					validateClient="true" update="panel"
+					action="#{registerBean.register}" />
+			</center>
+		</h:form>
+	</p:panel>
+	<div>
+		<h:messages></h:messages>
+	</div>
+
+	<script type="text/javascript">
+		/**  
+		 * JSF Validator  
+		 */
+		PrimeFaces.validator['custom.emailValidator'] = {
+
+			pattern : /\S+@\S+/,
+
+			validate : function(element, value) {
+				//use element.data() to access validation metadata, in this case there is none.  
+				if (!this.pattern.test(value)) {
+					throw {
+						summary : 'Validation Error',
+						detail : value + ' is not a valid email.'
+					}
+				}
+			}
+		};
+	</script>
+
+
+</h:body>
+</html>

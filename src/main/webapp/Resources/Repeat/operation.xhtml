@@ -1,0 +1,62 @@
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link type="text/css" rel="stylesheet" href="themes/bluesky/skin.css" />
+	<style type="text/css">
+.ui-widget {
+	font-size: 75%;
+}
+
+.ui-widget .ui-widget {
+	font-size: 100%;
+}
+
+.ui-layout-unit-content {
+	background-color: #1373A1;
+}
+
+.ui-layout-a .ui-layout-unit-content {  
+   background-image: url("./Images/logo.jpg");
+   font-size:90% !important;
+ } 
+
+</style>
+</h:head>
+<h:body>
+	<p:layout fullPage="true">
+
+		<p:layoutUnit position="north" size="150">
+			<p:layout>
+				<p:layoutUnit id="inner_north" position="north" size="100">
+					<p:layout>
+						<p:layoutUnit styleClass="ui-layout-a"  id="inner_west" position="west" size="80%">inner west
+						</p:layoutUnit>
+						<p:layoutUnit id="inner_east" position="center" size="20%">inner east</p:layoutUnit>
+					</p:layout>
+				</p:layoutUnit>
+				<p:layoutUnit id="inner_south" position="center" size="45">inner south</p:layoutUnit>
+			</p:layout>
+		</p:layoutUnit>
+
+		<p:layoutUnit position="south" size="100" header="Bottom">
+			<h:outputText value="South unit content." />
+		</p:layoutUnit>
+
+		<p:layoutUnit position="west" size="200" header="Left"
+			collapsible="true">
+			<h:outputText value="West unit content." />
+		</p:layoutUnit>
+
+		<p:layoutUnit position="east" size="200" header="Right"
+			collapsible="true">
+			<h:outputText value="Right unit content." />
+		</p:layoutUnit>
+
+		<p:layoutUnit position="center">
+        //content
+    </p:layoutUnit>
+	</p:layout>
+</h:body>
+</html>
